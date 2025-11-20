@@ -10,6 +10,7 @@ const Contact: FC = () => {
   console.log(process.env.PROTOCOL)
   console.log(process.env.HOST_URL)
   console.log(api.defaults.baseURL)
+  console.log(123)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,7 +35,10 @@ const Contact: FC = () => {
   }
 
   if (error) {
-    return <div style={{ color: 'red' }}>{error}</div>;
+    return <>
+      <div style={{ color: 'red' }}>{error}</div>;
+      <div>123</div>
+    </>
   }
 
   return (
