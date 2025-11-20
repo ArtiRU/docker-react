@@ -36,7 +36,7 @@ const Contact: FC = () => {
 
   if (error) {
     return <>
-      <div style={{ color: 'red' }}>{error}</div>;
+      <div style={{ color: 'red' }}>{error}</div>
       <div>123</div>
     </>
   }
