@@ -1,0 +1,12 @@
+.button {
+  display: flex;
+  justify-content: space-between;
+  width: clamp(100px, 10vw, 150px);
+  color: rgb(0 0 100% / 90%);
+  appearance: none;
+  backdrop-filter: blur(1px);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
