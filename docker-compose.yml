@@ -11,6 +11,9 @@ services:
         ls -la /output/ && 
         tail -f /dev/null
       "
+    environment:
+      - PROTOCOL=http
+      - HOST_URL=45.147.201.155:3000
 
   nginx:
     image: nginx:alpine
