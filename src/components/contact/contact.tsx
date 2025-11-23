@@ -1,16 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { getProducts } from '@/services/products';
-import { api } from '@/api';
 
 const Contact: FC = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  console.log(process.env.PROTOCOL)
-  console.log(process.env.HOST_URL)
-  console.log(api.defaults.baseURL)
-  console.log(123)
 
   useEffect(() => {
     const fetchProducts = async () => {

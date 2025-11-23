@@ -3,13 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - PROTOCOL=http
-      - HOST_URL=45.147.201.155:3000
   nginx:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - PROTOCOL=http
+        - HOST_URL=localhost:81
     ports:
       - '80:80'
     depends_on:
