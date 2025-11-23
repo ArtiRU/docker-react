@@ -1,9 +1,8 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18-alpine'
-            args '-p 3000:3000'
-        }
+    agent any
+
+    tools {
+        nodejs "NodeJS"  // Убедитесь что NodeJS настроен в Global Tool Configuration
     }
 
     stages {
@@ -15,6 +14,8 @@ pipeline {
 
         stage('Install') {
             steps {
+                sh 'node --version'
+                sh 'npm --version'
                 sh 'npm ci'
             }
         }
@@ -40,14 +41,7 @@ pipeline {
 
     post {
         always {
-            echo "✅ Pipeline completed: ${currentBuild.result}"
-            cleanWs()
-        }
-        success {
-            echo "🎉 Pipeline succeeded!"
-        }
-        failure {
-            echo "❌ Pipeline failed!"
+            echo "Pipeline completed: ${currentBuild.result}"
         }
     }
 }
