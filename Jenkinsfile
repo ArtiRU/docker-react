@@ -1,47 +1,39 @@
 pipeline {
-    agent any
-
-    tools {
-        nodejs "NodeJS"  // Убедитесь, что это имя совпадает с настройками в Jenkins
+    agent {
+        docker {
+            image 'node:18-alpine'
+            args '-p 3000:3000'
+        }
     }
 
     stages {
         stage('Checkout') {
             steps {
-                echo "🔄 Starting checkout..."
                 checkout scm
-                sh 'ls -la'  // Проверка что файлы есть
             }
         }
 
         stage('Install') {
             steps {
-                echo "📦 Installing dependencies..."
-                sh 'node --version'
-                sh 'npm --version'
                 sh 'npm ci'
             }
         }
 
         stage('Lint') {
             steps {
-                echo "🔍 Running lint..."
                 sh 'npm run lint'
             }
         }
 
         stage('Test') {
             steps {
-                echo "🧪 Running tests..."
                 sh 'npm run test'
             }
         }
 
         stage('Build') {
             steps {
-                echo "🏗️ Building project..."
                 sh 'npm run build'
-                sh 'ls -la dist/'  // Проверка что сборка создалась
             }
         }
     }
@@ -49,7 +41,7 @@ pipeline {
     post {
         always {
             echo "✅ Pipeline completed: ${currentBuild.result}"
-            cleanWs()  // Очистка workspace
+            cleanWs()
         }
         success {
             echo "🎉 Pipeline succeeded!"
