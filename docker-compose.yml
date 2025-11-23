@@ -14,3 +14,9 @@ services:
       - '80:80'
     depends_on:
       - app
+  jenkins:
+    image: jenkins/jenkins:lts-jdk21
+    container_name: jenkins
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
