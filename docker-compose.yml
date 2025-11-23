@@ -8,8 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - PROTOCOL=http
-        - HOST_URL=localhost:81
+        - PROTOCOL=${PROTOCOL}
+        - HOST_URL=${HOST_URL}
     ports:
       - '80:80'
     depends_on:
