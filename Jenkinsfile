@@ -6,47 +6,35 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                checkout scm
+                echo '📦 Installing dependencies and building...'
+                sh 'npm ci'
+                sh 'npm run build'
             }
         }
 
-        stage('Install & Test') {
-            parallel {
-                stage('Install') {
-                    steps {
-                        sh 'npm ci'
-                    }
-                }
-                stage('Lint') {
-                    steps {
-                        sh 'npm run lint'
-                    }
-                }
-                stage('Test') {
-                    steps {
-                        sh 'npm run test'
-                    }
-                }
+        stage('Lint') {
+            steps {
+                echo '🔍 Running linters...'
+                sh 'npm run lint'
             }
         }
 
-        stage('Verify Build') {
+        stage('Test') {
             steps {
-                sh '''
-                    ls -la /var/jenkins_home/workspace/build/ || echo "Build not ready"
-                '''
+                echo '🧪 Running unit tests...'
+                sh 'npm run test'
             }
         }
     }
 
     post {
-        always {
-            echo "✅ Testing completed: ${currentBuild.result}"
-        }
         success {
-            echo "🎉 All tests passed! Build is ready in nginx"
+            echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed!'
         }
     }
 }
