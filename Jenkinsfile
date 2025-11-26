@@ -5,6 +5,12 @@ pipeline {
         nodejs "NodeJS"
     }
 
+    options {
+        timestamps()
+        timeout(time: 30, unit: 'MINUTES')
+        gitHubCommitStatusSetter()
+    }
+
     stages {
         stage('Build') {
             steps {
