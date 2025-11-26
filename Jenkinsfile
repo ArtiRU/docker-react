@@ -8,7 +8,6 @@ pipeline {
     options {
         timestamps()
         timeout(time: 30, unit: 'MINUTES')
-        gitHubCommitStatusSetter()
     }
 
     stages {
